@@ -3,6 +3,7 @@
 #include <uva/color.hpp>
 #include <cstdint>
 
+#include <uva/xml.hpp>
 #include <uva/drawing.hpp>
 
 namespace uva
