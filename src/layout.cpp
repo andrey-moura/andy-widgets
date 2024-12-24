@@ -1,9 +1,5 @@
 #include <uva/widgets.hpp>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL2_gfxPrimitives.h>
-
 void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
 {
     x = __x;
