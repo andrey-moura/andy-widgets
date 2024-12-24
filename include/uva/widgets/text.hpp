@@ -33,7 +33,7 @@ namespace uva
 
             text_element_style text_style;
 
-            void draw() override;
+            //void draw() override;
             void parse(uva::xml::schema& schema, uva::xml& xml) override;
         };
     }

@@ -36,7 +36,7 @@ namespace uva
 
             widget_style style;
 
-            virtual void draw();
+            //virtual void draw();
             virtual void parse(uva::xml::schema& schema, uva::xml& xml);
         };
     };

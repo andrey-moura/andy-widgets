@@ -73,14 +73,14 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
     }
 }
 
-void uva::widgets::layout::draw()
-{
-    widget::draw();
+// void uva::widgets::layout::draw()
+// {
+//     widget::draw();
 
-    for(auto& child : childreans) {
-        child->draw();
-    }
-}
+//     for(auto& child : childreans) {
+//         child->draw();
+//     }
+// }
 
 void uva::widgets::layout::parse(uva::xml::schema& schema, uva::xml& xml)
 {
