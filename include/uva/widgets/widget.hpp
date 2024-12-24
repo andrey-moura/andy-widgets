@@ -16,6 +16,9 @@ namespace uva
         };
 
         struct widget_style {
+            widget_style() = default;
+            widget_style(int flex) : flex(flex) {}
+
             uint8_t             flex = 0;
             widget_cursor cursor = widget_cursor::widget_cursor_default;
 
@@ -27,6 +30,9 @@ namespace uva
         };
 
         class widget {
+        public:
+            widget() = default;
+            widget(int x, int y, int w, int h, widget_style style = {});
         public:
             int x;
             int y;

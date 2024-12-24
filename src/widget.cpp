@@ -2,6 +2,12 @@
 
 #include <uva/xml.hpp>
 
+uva::widgets::widget::widget(int x, int y, int w, int h, uva::widgets::widget_style style)
+    : x(x), y(y), w(w), h(h), style(style)
+{
+
+}
+
 void uva::widgets::widget::parse(uva::xml::schema& schema, uva::xml& xml) {
     style.background_color = schema.color_attribute(xml, "background-color");
 
