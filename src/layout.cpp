@@ -93,14 +93,14 @@ void uva::widgets::layout::parse(uva::xml::schema& schema, uva::xml& xml)
             te->parse(schema, child);
 
             // Get text size
-            TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/abyssinica/AbyssinicaSIL-Regular.ttf", 24);
+            // TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/abyssinica/AbyssinicaSIL-Regular.ttf", 24);
 
-            if(!font) {
-                throw std::runtime_error(SDL_GetError());
-            }
+            // if(!font) {
+            //     throw std::runtime_error(SDL_GetError());
+            // }
 
-            TTF_SizeText(font, te->content.c_str(), &te->w, &te->h);
-            TTF_CloseFont(font);
+            // TTF_SizeText(font, te->content.c_str(), &te->w, &te->h);
+            // TTF_CloseFont(font);
 
             childreans.push_back(te);
         } else if(child.tag == "layout") {
