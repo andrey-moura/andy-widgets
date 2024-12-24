@@ -16,3 +16,7 @@ void uva::widgets::widget::parse(uva::xml::schema& schema, uva::xml& xml) {
     style.gap = atoi(xml.attribute("gap", "0").data());
     style.border_radius = atoi(xml.attribute("border-radius", "0").data());
 }
+
+void uva::widgets::widget::render(uva::drawing::basic_renderer& drawing) {
+    drawing.fill_rect({x, y, w, h}, style.background_color);
+}

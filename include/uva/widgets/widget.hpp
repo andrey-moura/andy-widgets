@@ -3,7 +3,7 @@
 #include <uva/color.hpp>
 #include <cstdint>
 
-#include <uva/xml.hpp>
+#include <uva/drawing.hpp>
 
 namespace uva
 {
@@ -42,7 +42,7 @@ namespace uva
 
             widget_style style;
 
-            //virtual void draw();
+            virtual void render(uva::drawing::basic_renderer& drawing);
             virtual void parse(uva::xml::schema& schema, uva::xml& xml);
         };
     };
