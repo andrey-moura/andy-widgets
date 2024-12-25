@@ -42,7 +42,7 @@ namespace uva
 
             void calculate_layout(int __x, int __y, int __w, int __h);
 
-            //void draw() override;
+            void render(uva::drawing::basic_renderer& renderer) override;
             void parse(uva::xml::schema& schema, uva::xml& xml) override;
         };
     }

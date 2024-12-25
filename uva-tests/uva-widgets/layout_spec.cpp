@@ -1,6 +1,11 @@
 #include <iostream>
 
 #include <uva/widgets/layout.hpp>
+
+#include <uva/file.hpp>
+#include <uva/drawing/image.hpp>
+#include <uva/xml.hpp>
+
 #include <uva/tests.hpp>
 
 using namespace uva::tests;
@@ -130,5 +135,60 @@ describe of(structure, "uva::widgets::layout", []() {
                 expect(l.childreans[2]->h).to<eq>(200);
             });
         });
+    });
+
+    describe(".render", [](){
+        std::filesystem::path widgets_folder = std::filesystem::current_path() / "include" / "uva-widgets";
+        std::filesystem::path flex_folder = widgets_folder / "uva-tests" / "uva-widgets" / "render" / "layout" / "flex";
+
+        auto xml_renderer_describer = [&](std::string_view filename) {
+            it("should render {}.xml correctly", {filename}, [&](){
+                std::filesystem::path file = flex_folder / filename;
+                file.replace_extension(".bmp");
+
+                uva::drawing::image img = uva::drawing::image::load_bitmap(file);
+
+                file.replace_extension(".xml");
+
+                uva::xml xml = uva::xml::decode(uva::file::read_all_text<char>(file));
+                uva::xml::schema schema = uva::xml::decode(uva::file::read_all_text<char>(widgets_folder / "schema.xsd"));
+
+                uva::widgets::layout l;
+                l.parse(schema, xml);
+
+                uva::drawing::memory_surface surface(img.size());
+                uva::drawing::software_renderer renderer(surface);
+
+                l.calculate_layout(0, 0, img.size().w, img.size().h);
+                l.render(renderer);
+
+                uva::drawing::image img2 = surface.to_image();
+
+                std::filesystem::path output_path = std::filesystem::current_path() / "build" / filename;
+                output_path.replace_extension(".bmp");
+
+                img2.save_bitmap(output_path);
+
+                expect(img2).to<eq>(img);
+
+                uva::drawing::image testimg(uva::size(400, 400));
+
+                testimg.fill(uva::color(255, 0, 0, 255), uva::rect(0, 0, 133, 400));
+                testimg.fill(uva::color(0, 255, 0, 255), uva::rect(133, 0, 133, 400));
+                testimg.fill(uva::color(0, 0, 255, 255), uva::rect(266, 0, 134, 400));
+
+                testimg.save_bitmap("test.bmp");
+            });
+        };
+
+        int i = 1;
+        while(true) {
+            if(std::filesystem::exists(flex_folder / (std::to_string(i) + ".xml"))) {
+                xml_renderer_describer(std::to_string(i));
+            } else {
+                break;
+            }
+            i++;
+        }
     });
 });
