@@ -6,7 +6,7 @@ add_library(uva-widgets
     ${CMAKE_CURRENT_LIST_DIR}/src/text.cpp
 )
 
-target_link_libraries(uva-widgets -lSDL2 uva-xml uva-binary -lSDL2_ttf -lSDL2_gfx)
+target_link_libraries(uva-widgets uva-drawing uva-xml uva-binary)
 
 if (TARGET uva-test)
     uva_tests_configure(uva-widgets)
