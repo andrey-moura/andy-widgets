@@ -35,8 +35,8 @@ namespace uva
             widget() = default;
             widget(int x, int y, int w, int h, widget_style style = {});
         public:
-            int x;
-            int y;
+            int x = 0;
+            int y = 0;
 
             int w;
             int h;

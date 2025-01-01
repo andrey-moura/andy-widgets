@@ -24,16 +24,20 @@ namespace uva
         };
 
         struct text_element_style {
+            std::string font;
+            size_t font_size;
             text_vertical_alignment vertical_alignment;
             text_horizontal_alignment horizontal_alignment;
         };
 
         struct text : public widget {
+            text() = default;
+            text(std::string __content, const uva::drawing::basic_renderer& renderer, size_t font_size = 12);
             std::string content;
 
             text_element_style text_style;
 
-            //void draw() override;
+            void render(uva::drawing::basic_renderer& renderer) override;
             void parse(uva::xml::schema& schema, uva::xml& xml) override;
         };
     }
