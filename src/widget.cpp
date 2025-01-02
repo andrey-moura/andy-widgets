@@ -8,7 +8,7 @@ uva::widgets::widget::widget(int x, int y, int w, int h, uva::widgets::widget_st
 
 }
 
-void uva::widgets::widget::parse(uva::xml::schema& schema, uva::xml& xml) {
+void uva::widgets::widget::parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) {
     style.background_color = schema.color_attribute(xml, "background-color");
 
     style.flex = atoi(xml.attribute("flex", "0").data());

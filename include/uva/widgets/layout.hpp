@@ -25,8 +25,16 @@ namespace uva
                 layout_flex_direction_max
             };
 
+            enum layout_align_items : uint8_t {
+                start,
+                center,
+                end,
+                layout_align_items_max
+            };
+
             layout_type           type      = layout_type::flexible;
             layout_flex_direction direction = layout_flex_direction::vertical;
+            layout_align_items    align_items = layout_align_items::start;
         };
 
         struct border {
@@ -40,10 +48,11 @@ namespace uva
 
             std::vector<std::shared_ptr<widget>> childreans;
 
+            uva::size calculate_min_size() override;
             void calculate_layout(int __x, int __y, int __w, int __h);
 
             void render(uva::drawing::basic_renderer& renderer) override;
-            void parse(uva::xml::schema& schema, uva::xml& xml) override;
+            void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) override;
         };
     }
 }

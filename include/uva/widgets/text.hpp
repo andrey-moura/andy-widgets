@@ -38,7 +38,7 @@ namespace uva
             text_element_style text_style;
 
             void render(uva::drawing::basic_renderer& renderer) override;
-            void parse(uva::xml::schema& schema, uva::xml& xml) override;
+            void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) override;
         };
     }
 }

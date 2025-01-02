@@ -34,6 +34,17 @@
         </xs:simpleType>
       </xs:attribute>
 
+      <xs:attribute name="align" use="optional" default="start">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <!-- Allowed values for direction: 'vertical' and 'horizontal' -->
+            <xs:enumeration value="start"/>
+            <xs:enumeration value="center"/>
+            <xs:enumeration value="end"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+
       <xs:attribute name="padding" use="optional" default="0px">
         <xs:simpleType>
           <xs:restriction base="xs:string">
@@ -62,6 +73,14 @@
     <xs:complexType mixed="true">
       <!-- Attributes of the 'text' element -->
       <xs:attribute name="background-color" type="colorType" use="optional" default="#FFFFFF"/>
+      <xs:attribute name="font-size" use="optional" default="12px">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <!-- Pattern: a number followed by 'px' -->
+            <xs:pattern value="[0-9]+px"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
       <xs:attribute name="color" type="colorType" use="optional" default="#000000"/>
       <xs:attribute name="flex" type="xs:integer" use="optional" default="0"/>
       <xs:attribute name="cursor" type="cursorType" use="optional" default="default"/>

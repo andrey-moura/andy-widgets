@@ -79,6 +79,32 @@ describe of(structure, "uva::widgets::layout", []() {
                         expect(space).to<eq>(400);
                     }
                 });
+                it("should align items in center correctly", [direction](){
+                    uva::widgets::layout l;
+                    l.style_layout.align_items = uva::widgets::layout_style::layout_align_items::center;
+                    l.style_layout.direction = direction;
+
+                    l.childreans.push_back(std::make_shared<uva::widgets::widget>(0, 0, 10, 10));
+                    l.childreans.push_back(std::make_shared<uva::widgets::widget>(0, 0, 10, 10));
+
+                    l.calculate_layout(0, 0, 400, 400);
+
+                    expect(direction == uva::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[0]->y : l.childreans[0]->x).to<eq>(190);
+                    expect(direction == uva::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[1]->y : l.childreans[1]->x).to<eq>(200);
+                });
+                it("should align items in end correctly", [direction](){
+                    uva::widgets::layout l;
+                    l.style_layout.align_items = uva::widgets::layout_style::layout_align_items::end;
+                    l.style_layout.direction = direction;
+
+                    l.childreans.push_back(std::make_shared<uva::widgets::widget>(0, 0, 10, 10));
+                    l.childreans.push_back(std::make_shared<uva::widgets::widget>(0, 0, 10, 10));
+
+                    l.calculate_layout(0, 0, 400, 400);
+
+                    expect(direction == uva::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[0]->y : l.childreans[0]->x).to<eq>(380);
+                    expect(direction == uva::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[1]->y : l.childreans[1]->x).to<eq>(390);
+                });
             });
         };
 
@@ -153,11 +179,11 @@ describe of(structure, "uva::widgets::layout", []() {
                 uva::xml xml = uva::xml::decode(uva::file::read_all_text<char>(file));
                 uva::xml::schema schema = uva::xml::decode(uva::file::read_all_text<char>(widgets_folder / "schema.xsd"));
 
-                uva::widgets::layout l;
-                l.parse(schema, xml);
-
                 uva::drawing::memory_surface surface(img.size());
                 uva::drawing::software_renderer renderer(surface);
+
+                uva::widgets::layout l;
+                l.parse(renderer, schema, xml);
 
                 l.calculate_layout(0, 0, img.size().w, img.size().h);
                 l.render(renderer);

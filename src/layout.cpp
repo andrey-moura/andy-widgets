@@ -1,5 +1,28 @@
 #include <uva/widgets.hpp>
 
+uva::size uva::widgets::layout::calculate_min_size()
+{
+    int min_w = -1;
+    int min_h = -1;
+
+    int& dimension = style_layout.direction == layout_style::layout_flex_direction::vertical ? min_h : min_w;
+
+    for(size_t i = 0; i < childreans.size(); i++) {
+        auto& child = childreans[i];
+        uva::size s = child->calculate_min_size();
+
+        int child_dimension = style_layout.direction == layout_style::layout_flex_direction::vertical ? s.h : s.w;
+
+        dimension += child_dimension;
+
+        if(i > 0) {
+            dimension += style.gap;
+        }
+    }
+
+    return { min_w, min_h };
+}
+
 void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
 {
     x = __x;
@@ -12,21 +35,24 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
 
     int number_of_spacer_elements = 0;
     int available_space = 0;
+    int dimension = 0;
 
     if(style_layout.direction == layout_style::layout_flex_direction::vertical) {
-        available_space = __h - (style.padding * 2) - style.gap * childreans.size();
+        dimension = h;
     } else {
-        available_space = __w - (style.padding * 2) - style.gap * childreans.size();
+        dimension = w;
     }
+    
+    available_space = dimension - (style.padding * 2) - style.gap * childreans.size();
 
     for(auto& child : childreans) {
         if(child->style.flex > 0) {
             number_of_spacer_elements += child->style.flex;
         } else {
             if(style_layout.direction == layout_style::layout_flex_direction::vertical) {
-                available_space -= child->h;
+                available_space -= child->calculate_min_size().h;
             } else {
-                available_space -= child->w;
+                available_space -= child->calculate_min_size().h;
             }
         }
     }
@@ -45,6 +71,25 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
                 }
             }
         }
+    } else {
+        switch(style_layout.align_items) {
+            case layout_style::layout_align_items::center:
+                if(style_layout.direction == layout_style::layout_flex_direction::vertical) {
+                    current_y += available_space / 2;
+                } else {
+                    current_x += available_space / 2;
+                }
+                break;
+            case layout_style::layout_align_items::end:
+                if(style_layout.direction == layout_style::layout_flex_direction::vertical) {
+                    current_y += available_space;
+                } else {
+                    current_x += available_space;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     for(auto& child : childreans) {
@@ -52,10 +97,18 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
         child->y = current_y;
 
         if(style_layout.direction == layout_style::layout_flex_direction::vertical) {
+            if(!child->style.flex > 0) {
+                child->h = child->calculate_min_size().h;
+            }
+
             child->w = __w - (style.padding * 2);
             current_y += child->h;
             current_y += style.gap;
         } else {
+            if(!child->style.flex > 0) {
+                child->w = child->calculate_min_size().w;
+            }
+
             child->h = __h - (style.padding * 2);
             current_x += child->w;
             current_x += style.gap;
@@ -78,34 +131,25 @@ void uva::widgets::layout::render(uva::drawing::basic_renderer& renderer)
     }
 }
 
-void uva::widgets::layout::parse(uva::xml::schema& schema, uva::xml& xml)
+void uva::widgets::layout::parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml)
 {
-    widget::parse(schema, xml);
+    widget::parse(renderer, schema, xml);
     
     style_layout.type = (uva::widgets::layout_style::layout_type)schema.integer_attribute(xml, "type");
     style_layout.direction = (uva::widgets::layout_style::layout_flex_direction)schema.integer_attribute(xml, "direction");
+    style_layout.align_items = (uva::widgets::layout_style::layout_align_items)schema.integer_attribute(xml, "align");
 
     for(auto& child : xml.childrens) {
         if(child.tag == "text") {
             std::shared_ptr<uva::widgets::text> te = std::make_shared<uva::widgets::text>();
             te->content = child.content;
             
-            te->parse(schema, child);
-
-            // Get text size
-            // TTF_Font* font = TTF_OpenFont("/usr/share/fonts/truetype/abyssinica/AbyssinicaSIL-Regular.ttf", 24);
-
-            // if(!font) {
-            //     throw std::runtime_error(SDL_GetError());
-            // }
-
-            // TTF_SizeText(font, te->content.c_str(), &te->w, &te->h);
-            // TTF_CloseFont(font);
+            te->parse(renderer, schema, child);
 
             childreans.push_back(te);
         } else if(child.tag == "layout") {
             std::shared_ptr<uva::widgets::layout> le2 = std::make_shared<uva::widgets::layout>();
-            le2->parse(schema, child);
+            le2->parse(renderer, schema, child);
 
             childreans.push_back(le2);
         }

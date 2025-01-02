@@ -40,11 +40,12 @@ namespace uva
 
             int w;
             int h;
-
+        public:
             widget_style style;
 
-            virtual void render(uva::drawing::basic_renderer& drawing);
-            virtual void parse(uva::xml::schema& schema, uva::xml& xml);
+            virtual uva::size calculate_min_size() { return { w, h }; }
+            virtual void render(uva::drawing::basic_renderer& renderer);
+            virtual void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml);
         };
     };
 };
