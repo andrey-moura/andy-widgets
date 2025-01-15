@@ -152,6 +152,11 @@ void uva::widgets::layout::parse(uva::drawing::basic_renderer& renderer, uva::xm
             le2->parse(renderer, schema, child);
 
             childreans.push_back(le2);
+        } else if(child.tag == "input") {
+            std::shared_ptr<uva::widgets::input> ie = std::make_shared<uva::widgets::input>();
+            ie->parse(renderer, schema, child);
+
+            childreans.push_back(ie);
         }
     }
 }

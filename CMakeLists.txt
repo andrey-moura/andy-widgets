@@ -4,6 +4,7 @@ add_library(uva-widgets
     ${CMAKE_CURRENT_LIST_DIR}/src/widget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/layout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/text.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/input.cpp
 )
 
 target_link_libraries(uva-widgets uva-drawing uva-xml uva-binary)

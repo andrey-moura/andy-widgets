@@ -15,6 +15,8 @@ void uva::widgets::widget::parse(uva::drawing::basic_renderer& renderer, uva::xm
     style.padding = atoi(xml.attribute("padding", "0").data());
     style.gap = atoi(xml.attribute("gap", "0").data());
     style.border_radius = atoi(xml.attribute("border-radius", "0").data());
+
+    id = xml.attribute("id", "");
 }
 
 void uva::widgets::widget::render(uva::drawing::basic_renderer& drawing) {

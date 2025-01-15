@@ -40,12 +40,15 @@ namespace uva
 
             int w;
             int h;
+
+            std::string id;
         public:
             widget_style style;
 
             virtual uva::size calculate_min_size() { return { w, h }; }
             virtual void render(uva::drawing::basic_renderer& renderer);
             virtual void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml);
+            virtual bool on_char(std::string c) { return false; }
         };
     };
 };

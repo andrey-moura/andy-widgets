@@ -9,6 +9,7 @@
         <xs:choice maxOccurs="unbounded">
           <xs:element ref="text"/>
           <xs:element ref="layout"/>
+          <xs:element ref="input"/>
         </xs:choice>
       </xs:sequence>
 
@@ -71,6 +72,7 @@
   <!-- Global Declaration of the 'text' element -->
   <xs:element name="text">
     <xs:complexType mixed="true">
+      <xs:attribute name="id" type="xs:string" use="optional"/>
       <!-- Attributes of the 'text' element -->
       <xs:attribute name="background-color" type="colorType" use="optional" default="#FFFFFF"/>
       <xs:attribute name="font-size" use="optional" default="12px">
@@ -112,6 +114,14 @@
           </xs:restriction>
         </xs:simpleType>
       </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Declaration of 'input' element -->
+  <xs:element name="input">
+    <xs:complexType mixed="true">
+      <xs:attribute name="background-color" type="colorType" use="optional" default="#FFFFFF"/>
+      <xs:attribute name="color" type="colorType" use="optional" default="#000000"/>
     </xs:complexType>
   </xs:element>
 
