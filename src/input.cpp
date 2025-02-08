@@ -10,6 +10,12 @@ namespace uva
             int __x = x + style.padding;
             int __y = y + style.padding;
 
+            // center vertically
+
+            uva::size size = renderer.text_extent(content, 12);
+
+            __y += (h - size.h) / 2;
+
             renderer.draw_text(content, { __x, __y }, 12, style.color);
         }
 
