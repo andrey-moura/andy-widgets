@@ -1,6 +1,6 @@
 project(uva-widgets)
 
-add_library(uva-widgets
+add_library(uva-widgets OBJECT
     ${CMAKE_CURRENT_LIST_DIR}/src/widget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/layout.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/text.cpp
