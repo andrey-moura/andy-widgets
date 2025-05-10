@@ -1,6 +1,8 @@
 #pragma once
 
 #include <uva/color.hpp>
+#include <uva/size.hpp>
+
 #include <cstdint>
 
 #include <uva/xml.hpp>
