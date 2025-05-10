@@ -32,13 +32,13 @@ namespace uva
 
         struct text : public widget {
             text() = default;
-            text(std::string __content, const uva::drawing::basic_renderer& renderer, size_t font_size = 12);
+            text(std::string __content, SDL_Renderer* renderer, size_t font_size = 12);
             std::string content;
 
             text_element_style text_style;
 
-            void render(uva::drawing::basic_renderer& renderer) override;
-            void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) override;
+            void render(SDL_Renderer* renderer) override;
+            void parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml) override;
         };
     }
 }

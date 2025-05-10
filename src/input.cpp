@@ -4,7 +4,7 @@ namespace uva
 {
     namespace widgets
     {
-        void input::render(uva::drawing::basic_renderer& renderer) {
+        void input::render(SDL_Renderer* renderer) {
             widget::render(renderer);
 
             int __x = x + style.padding;
@@ -12,14 +12,14 @@ namespace uva
 
             // center vertically
 
-            uva::size size = renderer.text_extent(content, 12);
+            //uva::size size = renderer.text_extent(content, 12);
 
-            __y += (h - size.h) / 2;
+            //__y += (h - size.h) / 2;
 
-            renderer.draw_text(content, { __x, __y }, 12, style.color);
+            //renderer.draw_text(content, { __x, __y }, 12, style.color);
         }
 
-        void input::parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) {
+        void input::parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml) {
             widget::parse(renderer, schema, xml);
 
             style.color = schema.color_attribute(xml, "color");

@@ -122,7 +122,7 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
     }
 }
 
-void uva::widgets::layout::render(uva::drawing::basic_renderer& renderer)
+void uva::widgets::layout::render(SDL_Renderer* renderer)
 {
     widget::render(renderer);
 
@@ -131,7 +131,7 @@ void uva::widgets::layout::render(uva::drawing::basic_renderer& renderer)
     }
 }
 
-void uva::widgets::layout::parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml)
+void uva::widgets::layout::parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml)
 {
     widget::parse(renderer, schema, xml);
     

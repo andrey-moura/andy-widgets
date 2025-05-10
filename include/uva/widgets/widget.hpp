@@ -4,7 +4,8 @@
 #include <cstdint>
 
 #include <uva/xml.hpp>
-#include <uva/drawing.hpp>
+
+struct SDL_Renderer;
 
 namespace uva
 {
@@ -46,8 +47,8 @@ namespace uva
             widget_style style;
 
             virtual uva::size calculate_min_size() { return { w, h }; }
-            virtual void render(uva::drawing::basic_renderer& renderer);
-            virtual void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml);
+            virtual void render(SDL_Renderer* renderer);
+            virtual void parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml);
             virtual bool on_char(std::string c) { return false; }
         };
     };

@@ -8,7 +8,7 @@ uva::widgets::widget::widget(int x, int y, int w, int h, uva::widgets::widget_st
 
 }
 
-void uva::widgets::widget::parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) {
+void uva::widgets::widget::parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml) {
     style.background_color = schema.color_attribute(xml, "background-color");
 
     style.flex = atoi(xml.attribute("flex", "0").data());
@@ -19,6 +19,6 @@ void uva::widgets::widget::parse(uva::drawing::basic_renderer& renderer, uva::xm
     id = xml.attribute("id", "");
 }
 
-void uva::widgets::widget::render(uva::drawing::basic_renderer& drawing) {
-    drawing.fill_rect({x, y, w, h}, style.background_color);
+void uva::widgets::widget::render(SDL_Renderer* renderer) {
+    //drawing.fill_rect({x, y, w, h}, style.background_color);
 }

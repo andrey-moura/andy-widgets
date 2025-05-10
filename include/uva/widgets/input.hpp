@@ -10,8 +10,8 @@ namespace uva
         protected:
             std::string content;
         public:
-            void render(uva::drawing::basic_renderer& renderer) override;
-            void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) override;
+            void render(SDL_Renderer* renderer) override;
+            void parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml) override;
             uva::size calculate_min_size() override;
             bool on_char(std::string c) override;
         };

@@ -51,8 +51,8 @@ namespace uva
             uva::size calculate_min_size() override;
             void calculate_layout(int __x, int __y, int __w, int __h);
 
-            void render(uva::drawing::basic_renderer& renderer) override;
-            void parse(uva::drawing::basic_renderer& renderer, uva::xml::schema& schema, uva::xml& xml) override;
+            void render(SDL_Renderer* renderer) override;
+            void parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml) override;
         };
     }
 }
