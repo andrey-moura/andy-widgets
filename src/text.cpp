@@ -2,29 +2,29 @@
 
 #include <stdexcept>
 
-uva::widgets::text::text(std::string __content, SDL_Renderer* renderer, size_t font_size)
+uva::widgets::text::text(std::string __content, void* target, size_t font_size)
     : content(std::move(__content))
 {
     text_style.font_size = font_size;
 
     //uva::size size = renderer.text_extent(content, text_style.font_size);
 
-    w = size.w;
-    h = size.h;
+    //w = size.w;
+    //h = size.h;
 }
 
-void uva::widgets::text::render(SDL_Renderer* renderer)
+void uva::widgets::text::render(void* target)
 {
-    widget::render(renderer);
+    widget::render(target);
 
     if(content.size()) {
         //renderer.draw_text(content, { x, y }, text_style.font_size, style.color);
     }
 }
 
-void uva::widgets::text::parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml)
+void uva::widgets::text::parse(void* target, uva::xml::schema& schema, uva::xml& xml)
 {
-    widget::parse(renderer, schema, xml);
+    widget::parse(target, schema, xml);
     
     style.color = schema.color_attribute(xml, "color");
     style.cursor = (uva::widgets::widget_cursor)schema.integer_attribute(xml, "cursor");
@@ -50,6 +50,6 @@ void uva::widgets::text::parse(SDL_Renderer* renderer, uva::xml::schema& schema,
 
     //uva::size size = renderer.text_extent(content, text_style.font_size);
 
-    w = size.w;
-    h = size.h;
+    //w = size.w;
+    //h = size.h;
 }

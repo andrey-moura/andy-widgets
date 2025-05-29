@@ -64,9 +64,9 @@
                                         throw std::runtime_error("background-color must be a hex color");
                                     }
 
-                                    ve->style.background_color.r = uva::binary::byte_from_hex_string(background_color.data() + 1);
-                                    ve->style.background_color.g = uva::binary::byte_from_hex_string(background_color.data() + 3);
-                                    ve->style.background_color.b = uva::binary::byte_from_hex_string(background_color.data() + 5);
+                                    ve->style.background_color.r = andy::binary::byte_from_hex_string(background_color.data() + 1);
+                                    ve->style.background_color.g = andy::binary::byte_from_hex_string(background_color.data() + 3);
+                                    ve->style.background_color.b = andy::binary::byte_from_hex_string(background_color.data() + 5);
                                 }
                             }
 

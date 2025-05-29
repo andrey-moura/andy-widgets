@@ -122,18 +122,18 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
     }
 }
 
-void uva::widgets::layout::render(SDL_Renderer* renderer)
+void uva::widgets::layout::render(void* target)
 {
-    widget::render(renderer);
+    widget::render(target);
 
     for(auto& child : childreans) {
-        child->render(renderer);
+        child->render(target);
     }
 }
 
-void uva::widgets::layout::parse(SDL_Renderer* renderer, uva::xml::schema& schema, uva::xml& xml)
+void uva::widgets::layout::parse(void* target, uva::xml::schema& schema, uva::xml& xml)
 {
-    widget::parse(renderer, schema, xml);
+    widget::parse(target, schema, xml);
     
     style_layout.type = (uva::widgets::layout_style::layout_type)schema.integer_attribute(xml, "type");
     style_layout.direction = (uva::widgets::layout_style::layout_flex_direction)schema.integer_attribute(xml, "direction");
@@ -144,17 +144,17 @@ void uva::widgets::layout::parse(SDL_Renderer* renderer, uva::xml::schema& schem
             std::shared_ptr<uva::widgets::text> te = std::make_shared<uva::widgets::text>();
             te->content = child.content;
             
-            te->parse(renderer, schema, child);
+            te->parse(target, schema, child);
 
             childreans.push_back(te);
         } else if(child.tag == "layout") {
             std::shared_ptr<uva::widgets::layout> le2 = std::make_shared<uva::widgets::layout>();
-            le2->parse(renderer, schema, child);
+            le2->parse(target, schema, child);
 
             childreans.push_back(le2);
         } else if(child.tag == "input") {
             std::shared_ptr<uva::widgets::input> ie = std::make_shared<uva::widgets::input>();
-            ie->parse(renderer, schema, child);
+            ie->parse(target, schema, child);
 
             childreans.push_back(ie);
         }
