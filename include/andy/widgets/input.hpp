@@ -2,7 +2,7 @@
 
 #include "widget.hpp"
 
-namespace uva
+namespace andy
 {
     namespace widgets
     {
@@ -11,8 +11,8 @@ namespace uva
             std::string content;
         public:
             void render(void* target) override;
-            void parse(void* target, uva::xml::schema& schema, uva::xml& xml) override;
-            uva::size calculate_min_size() override;
+            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
+            andy::size calculate_min_size() override;
             bool on_char(std::string c) override;
         };
     };

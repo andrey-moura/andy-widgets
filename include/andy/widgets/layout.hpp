@@ -4,12 +4,12 @@
 #include <vector>
 #include <map>
 
-#include <uva/color.hpp>
-#include <uva/xml.hpp>
+#include <andy/color.hpp>
+#include <andy/xml.hpp>
 
 #include "widget.hpp"
 
-namespace uva
+namespace andy
 {
     namespace widgets
     {
@@ -39,7 +39,7 @@ namespace uva
 
         struct border {
             int width = 0;
-            uva::color color = uva::color(0, 0, 0, 0);
+            andy::color color = andy::color(0, 0, 0, 0);
             int radius = 0;
         };
 
@@ -48,11 +48,11 @@ namespace uva
 
             std::vector<std::shared_ptr<widget>> childreans;
 
-            uva::size calculate_min_size() override;
+            andy::size calculate_min_size() override;
             void calculate_layout(int __x, int __y, int __w, int __h);
 
             void render(void* target) override;
-            void parse(void* target, uva::xml::schema& schema, uva::xml& xml) override;
+            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
         };
     }
 }

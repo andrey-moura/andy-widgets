@@ -1,6 +1,6 @@
-#include <uva/widgets.hpp>
+#include <andy/widgets.hpp>
 
-uva::size uva::widgets::layout::calculate_min_size()
+andy::size andy::widgets::layout::calculate_min_size()
 {
     int min_w = -1;
     int min_h = -1;
@@ -9,7 +9,7 @@ uva::size uva::widgets::layout::calculate_min_size()
 
     for(size_t i = 0; i < childreans.size(); i++) {
         auto& child = childreans[i];
-        uva::size s = child->calculate_min_size();
+        andy::size s = child->calculate_min_size();
 
         int child_dimension = style_layout.direction == layout_style::layout_flex_direction::vertical ? s.h : s.w;
 
@@ -23,7 +23,7 @@ uva::size uva::widgets::layout::calculate_min_size()
     return { min_w, min_h };
 }
 
-void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
+void andy::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
 {
     x = __x;
     y = __y;
@@ -122,7 +122,7 @@ void uva::widgets::layout::calculate_layout(int __x, int __y, int __w, int __h)
     }
 }
 
-void uva::widgets::layout::render(void* target)
+void andy::widgets::layout::render(void* target)
 {
     widget::render(target);
 
@@ -131,29 +131,29 @@ void uva::widgets::layout::render(void* target)
     }
 }
 
-void uva::widgets::layout::parse(void* target, uva::xml::schema& schema, uva::xml& xml)
+void andy::widgets::layout::parse(void* target, andy::xml::schema& schema, andy::xml& xml)
 {
     widget::parse(target, schema, xml);
     
-    style_layout.type = (uva::widgets::layout_style::layout_type)schema.integer_attribute(xml, "type");
-    style_layout.direction = (uva::widgets::layout_style::layout_flex_direction)schema.integer_attribute(xml, "direction");
-    style_layout.align_items = (uva::widgets::layout_style::layout_align_items)schema.integer_attribute(xml, "align");
+    style_layout.type = (andy::widgets::layout_style::layout_type)schema.integer_attribute(xml, "type");
+    style_layout.direction = (andy::widgets::layout_style::layout_flex_direction)schema.integer_attribute(xml, "direction");
+    style_layout.align_items = (andy::widgets::layout_style::layout_align_items)schema.integer_attribute(xml, "align");
 
     for(auto& child : xml.childrens) {
         if(child.tag == "text") {
-            std::shared_ptr<uva::widgets::text> te = std::make_shared<uva::widgets::text>();
+            std::shared_ptr<andy::widgets::text> te = std::make_shared<andy::widgets::text>();
             te->content = child.content;
             
             te->parse(target, schema, child);
 
             childreans.push_back(te);
         } else if(child.tag == "layout") {
-            std::shared_ptr<uva::widgets::layout> le2 = std::make_shared<uva::widgets::layout>();
+            std::shared_ptr<andy::widgets::layout> le2 = std::make_shared<andy::widgets::layout>();
             le2->parse(target, schema, child);
 
             childreans.push_back(le2);
         } else if(child.tag == "input") {
-            std::shared_ptr<uva::widgets::input> ie = std::make_shared<uva::widgets::input>();
+            std::shared_ptr<andy::widgets::input> ie = std::make_shared<andy::widgets::input>();
             ie->parse(target, schema, child);
 
             childreans.push_back(ie);

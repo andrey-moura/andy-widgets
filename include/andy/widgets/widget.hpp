@@ -1,15 +1,13 @@
 #pragma once
 
-#include <uva/color.hpp>
-#include <uva/size.hpp>
+#include <andy/color.hpp>
+#include <andy/size.hpp>
 
 #include <cstdint>
 
-#include <uva/xml.hpp>
+#include <andy/xml.hpp>
 
-struct SDL_Renderer;
-
-namespace uva
+namespace andy
 {
     namespace widgets
     {
@@ -28,8 +26,8 @@ namespace uva
 
             int        padding = 0;
             int        gap     = 0;
-            uva::color color = uva::color(0, 0, 0, 255);
-            uva::color background_color = uva::color(0, 0, 0, 0);
+            andy::color color = andy::color(0, 0, 0, 255);
+            andy::color background_color = andy::color(0, 0, 0, 0);
             int border_radius = 0;
         };
 
@@ -48,9 +46,9 @@ namespace uva
         public:
             widget_style style;
 
-            virtual uva::size calculate_min_size() { return { w, h }; }
+            virtual andy::size calculate_min_size() { return { w, h }; }
             virtual void render(void* target);
-            virtual void parse(void* target, uva::xml::schema& schema, uva::xml& xml);
+            virtual void parse(void* target, andy::xml::schema& schema, andy::xml& xml);
             virtual bool on_char(std::string c) { return false; }
         };
     };

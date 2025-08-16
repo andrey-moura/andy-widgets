@@ -5,7 +5,7 @@
 
 #include "widget.hpp"
 
-namespace uva
+namespace andy
 {
     namespace widgets
     {
@@ -38,7 +38,7 @@ namespace uva
             text_element_style text_style;
 
             void render(void* target) override;
-            void parse(void* target, uva::xml::schema& schema, uva::xml& xml) override;
+            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
         };
     }
 }

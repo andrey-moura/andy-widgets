@@ -1,19 +1,19 @@
-#include <uva/widgets/text.hpp>
+#include <andy/widgets/text.hpp>
 
 #include <stdexcept>
 
-uva::widgets::text::text(std::string __content, void* target, size_t font_size)
+andy::widgets::text::text(std::string __content, void* target, size_t font_size)
     : content(std::move(__content))
 {
     text_style.font_size = font_size;
 
-    //uva::size size = renderer.text_extent(content, text_style.font_size);
+    //andy::size size = renderer.text_extent(content, text_style.font_size);
 
     //w = size.w;
     //h = size.h;
 }
 
-void uva::widgets::text::render(void* target)
+void andy::widgets::text::render(void* target)
 {
     widget::render(target);
 
@@ -22,15 +22,15 @@ void uva::widgets::text::render(void* target)
     }
 }
 
-void uva::widgets::text::parse(void* target, uva::xml::schema& schema, uva::xml& xml)
+void andy::widgets::text::parse(void* target, andy::xml::schema& schema, andy::xml& xml)
 {
     widget::parse(target, schema, xml);
     
     style.color = schema.color_attribute(xml, "color");
-    style.cursor = (uva::widgets::widget_cursor)schema.integer_attribute(xml, "cursor");
+    style.cursor = (andy::widgets::widget_cursor)schema.integer_attribute(xml, "cursor");
 
-    text_style.vertical_alignment   = (uva::widgets::text_vertical_alignment)schema.integer_attribute(xml, "vertical-align");
-    text_style.horizontal_alignment = (uva::widgets::text_horizontal_alignment)schema.integer_attribute(xml, "horizontal-align");
+    text_style.vertical_alignment   = (andy::widgets::text_vertical_alignment)schema.integer_attribute(xml, "vertical-align");
+    text_style.horizontal_alignment = (andy::widgets::text_horizontal_alignment)schema.integer_attribute(xml, "horizontal-align");
 
     std::string_view font_size = schema.string_attribute(xml, "font-size");
 
@@ -48,7 +48,7 @@ void uva::widgets::text::parse(void* target, uva::xml::schema& schema, uva::xml&
 
     text_style.font_size = atoi(font_size.data());
 
-    //uva::size size = renderer.text_extent(content, text_style.font_size);
+    //andy::size size = renderer.text_extent(content, text_style.font_size);
 
     //w = size.w;
     //h = size.h;

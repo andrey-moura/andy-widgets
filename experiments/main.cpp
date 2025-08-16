@@ -4,10 +4,10 @@
 #include <chrono>
 #include <thread>
 
-#include <uva/file.hpp>
-#include <uva/xml.hpp>
-#include <uva/binary.hpp>
-#include <uva/widgets.hpp>
+#include <andy/file.hpp>
+#include <andy/xml.hpp>
+#include <andy/binary.hpp>
+#include <andy/widgets.hpp>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
 
-    SDL_Window* window = SDL_CreateWindow("uva", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    SDL_Window* window = SDL_CreateWindow("andy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     SDL_ShowWindow(window);
 
     renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
     float total_free_time_ms = 0.0;
     std::chrono::milliseconds total_draw_duration = std::chrono::milliseconds(0);
 
-    uva::widgets::layout l;
+    andy::widgets::layout l;
 
     while(running) {
         auto frame_start = std::chrono::high_resolution_clock::now();
@@ -57,8 +57,8 @@ int main(int argc, char* argv[])
 
                     auto draw_start = std::chrono::high_resolution_clock::now();
 
-                    std::string content = uva::file::read_all_text<char>(std::filesystem::absolute("test.xml"));
-                    std::string schema_content = uva::file::read_all_text<char>(std::filesystem::absolute("file.xsd"));
+                    std::string content = andy::file::read_all_text<char>(std::filesystem::absolute("test.xml"));
+                    std::string schema_content = andy::file::read_all_text<char>(std::filesystem::absolute("file.xsd"));
 
                     // std::cout << content << std::endl;
 
@@ -71,8 +71,8 @@ int main(int argc, char* argv[])
 
                         //std::cout << "file read" << std::endl;
 
-                        uva::xml xml = uva::xml::decode(std::move(content));
-                        uva::xml::schema schema(std::move(uva::xml::decode(std::move(schema_content))));
+                        andy::xml xml = andy::xml::decode(std::move(content));
+                        andy::xml::schema schema(std::move(andy::xml::decode(std::move(schema_content))));
 
                         //std::cout << "xml decoded" << std::endl;
 
@@ -109,7 +109,7 @@ int main(int argc, char* argv[])
 
             // Try to find the element under the mouse
 
-            uva::widgets::widget* element_at_mouse = nullptr;
+            andy::widgets::widget* element_at_mouse = nullptr;
 
             SDL_SystemCursor cursor = SDL_SYSTEM_CURSOR_ARROW;
 
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
                 if(x >= child->x && x <= child->x + child->w && y >= child->y && y <= child->y + child->h) {
                     element_at_mouse = child.get();
                     
-                    auto le = dynamic_cast<uva::widgets::layout*>(child.get());
+                    auto le = dynamic_cast<andy::widgets::layout*>(child.get());
 
                     if(le) {
                         for(auto& child2 : le->childreans) {
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 
             if(element_at_mouse) {
                 switch(element_at_mouse->style.cursor) {
-                    case uva::widgets::widget_cursor::widget_cursor_pointer:
+                    case andy::widgets::widget_cursor::widget_cursor_pointer:
                         cursor = SDL_SYSTEM_CURSOR_HAND;
                         break;
                     default:
@@ -188,7 +188,7 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void uva::widgets::widget::draw()
+void andy::widgets::widget::draw()
 {
     if(style.background_color.a == 0) {
         return;

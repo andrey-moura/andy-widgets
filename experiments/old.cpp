@@ -4,7 +4,7 @@
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
 
-    SDL_Window* window = SDL_CreateWindow("uva", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    SDL_Window* window = SDL_CreateWindow("andy", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     SDL_ShowWindow(window);
 
     SDL_Renderer* renderer = SDL_CreateRenderer (window, -1, SDL_RENDERER_ACCELERATED);
@@ -36,7 +36,7 @@
 
                     auto draw_start = std::chrono::high_resolution_clock::now();
 
-                    std::string content = uva::file::read_all_text<char>(std::filesystem::absolute("test.xml"));
+                    std::string content = andy::file::read_all_text<char>(std::filesystem::absolute("test.xml"));
 
                     // std::cout << content << std::endl;
 
@@ -49,13 +49,13 @@
 
                         //std::cout << "file read" << std::endl;
 
-                        uva::xml xml = uva::xml::decode(content);
+                        andy::xml xml = andy::xml::decode(content);
 
                         //std::cout << "xml decoded" << std::endl;
 
                         //std::cout << "found " << xml.childrens.size() << " childreans" << std::endl;
 
-                        auto parse_element = [](view_element* ve, uva::xml& xml) {
+                        auto parse_element = [](view_element* ve, andy::xml& xml) {
                             auto background_color = xml.try_attribute("background-color");
 
                             if(background_color.size()) {
@@ -91,7 +91,7 @@
                                 throw std::runtime_error("layout must have a type");
                             }
 
-                            auto parse_from_xml = [](const uva::xml& xml, const uva::enumeration& enumeration) {
+                            auto parse_from_xml = [](const andy::xml& xml, const andy::enumeration& enumeration) {
                                 size_t output;
                                 if(!xml.enumerate_attribute(enumeration.name, enumeration, output)) {
                                     throw std::runtime_error("invalid enumeration");
