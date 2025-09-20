@@ -8,7 +8,7 @@ andy::widgets::widget::widget(int x, int y, int w, int h, andy::widgets::widget_
 
 }
 
-void andy::widgets::widget::parse(void* target, andy::xml::schema& schema, andy::xml& xml) {
+void andy::widgets::widget::parse(andy::xml::schema& schema, andy::xml& xml) {
     style.background_color = schema.color_attribute(xml, "background-color");
 
     style.flex = atoi(xml.attribute("flex", "0").data());
@@ -17,8 +17,4 @@ void andy::widgets::widget::parse(void* target, andy::xml::schema& schema, andy:
     style.border_radius = atoi(xml.attribute("border-radius", "0").data());
 
     id = xml.attribute("id", "");
-}
-
-void andy::widgets::widget::render(void* target) {
-
 }

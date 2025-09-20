@@ -1,11 +1,11 @@
 #pragma once
 
-#include <andy/color.hpp>
-#include <andy/size.hpp>
-
 #include <cstdint>
 
-#include <andy/xml.hpp>
+#include "andy/color.hpp"
+#include "andy/size.hpp"
+#include "andy/xml.hpp"
+#include "andy/drawing/basic_renderer.hpp"
 
 namespace andy
 {
@@ -46,10 +46,10 @@ namespace andy
         public:
             widget_style style;
 
-            virtual andy::size calculate_min_size() { return { w, h }; }
-            virtual void render(void* target);
-            virtual void parse(void* target, andy::xml::schema& schema, andy::xml& xml);
-            virtual bool on_char(std::string c) { return false; }
+            virtual andy::size calculate_min_size(andy::drawing::basic_renderer& renderer) { return { w, h }; }
+            virtual void render(andy::drawing::basic_renderer& renderer) { }
+            virtual void parse(andy::xml::schema& schema, andy::xml& xml);
+            virtual bool on_char(char c) { return false; }
         };
     };
 };

@@ -4,8 +4,11 @@
 #include <vector>
 #include <map>
 
-#include <andy/color.hpp>
-#include <andy/xml.hpp>
+#include "andy/color.hpp"
+#include "andy/size.hpp"
+#include "andy/point.hpp"
+#include "andy/xml.hpp"
+#include "andy/drawing/basic_renderer.hpp"
 
 #include "widget.hpp"
 
@@ -34,7 +37,7 @@ namespace andy
 
             layout_type           type      = layout_type::flexible;
             layout_flex_direction direction = layout_flex_direction::vertical;
-            layout_align_items    align_items = layout_align_items::start;
+            layout_align_items    justify   = layout_align_items::start;
         };
 
         struct border {
@@ -48,11 +51,11 @@ namespace andy
 
             std::vector<std::shared_ptr<widget>> childreans;
 
-            andy::size calculate_min_size() override;
-            void calculate_layout(int __x, int __y, int __w, int __h);
+            andy::size calculate_min_size(andy::drawing::basic_renderer& renderer) override;
+            void calculate_layout(andy::drawing::basic_renderer& renderer, andy::point __pos, andy::size __size);
 
-            void render(void* target) override;
-            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
+            void render(andy::drawing::basic_renderer& renderer) override;
+            void parse(andy::xml::schema& schema, andy::xml& xml) override;
         };
     }
 }

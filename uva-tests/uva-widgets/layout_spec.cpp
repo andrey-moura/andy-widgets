@@ -79,9 +79,9 @@ describe of(structure, "andy::widgets::layout", []() {
                         expect(space).to<eq>(400);
                     }
                 });
-                it("should align items in center correctly", [direction](){
+                it("should justify items in center correctly", [direction](){
                     andy::widgets::layout l;
-                    l.style_layout.align_items = andy::widgets::layout_style::layout_align_items::center;
+                    l.style_layout.justify = andy::widgets::layout_style::layout_align_items::center;
                     l.style_layout.direction = direction;
 
                     l.childreans.push_back(std::make_shared<andy::widgets::widget>(0, 0, 10, 10));
@@ -92,9 +92,9 @@ describe of(structure, "andy::widgets::layout", []() {
                     expect(direction == andy::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[0]->y : l.childreans[0]->x).to<eq>(190);
                     expect(direction == andy::widgets::layout_style::layout_flex_direction::vertical ? l.childreans[1]->y : l.childreans[1]->x).to<eq>(200);
                 });
-                it("should align items in end correctly", [direction](){
+                it("should justify items in end correctly", [direction](){
                     andy::widgets::layout l;
-                    l.style_layout.align_items = andy::widgets::layout_style::layout_align_items::end;
+                    l.style_layout.justify = andy::widgets::layout_style::layout_align_items::end;
                     l.style_layout.direction = direction;
 
                     l.childreans.push_back(std::make_shared<andy::widgets::widget>(0, 0, 10, 10));

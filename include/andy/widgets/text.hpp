@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <string>
 
+#include "andy/drawing/basic_renderer.hpp"
 #include "widget.hpp"
 
 namespace andy
@@ -32,13 +33,14 @@ namespace andy
 
         struct text : public widget {
             text() = default;
-            text(std::string __content, void* target, size_t font_size = 12);
+            text(std::string __content);
             std::string content;
 
             text_element_style text_style;
 
-            void render(void* target) override;
-            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
+            void render(andy::drawing::basic_renderer& renderer) override;
+            void parse(andy::xml::schema& schema, andy::xml& xml) override;
+            andy::size calculate_min_size(andy::drawing::basic_renderer& renderer) override;
         };
     }
 }

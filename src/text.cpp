@@ -2,35 +2,30 @@
 
 #include <stdexcept>
 
-andy::widgets::text::text(std::string __content, void* target, size_t font_size)
+andy::widgets::text::text(std::string __content)
     : content(std::move(__content))
 {
-    text_style.font_size = font_size;
-
-    //andy::size size = renderer.text_extent(content, text_style.font_size);
-
-    //w = size.w;
-    //h = size.h;
 }
 
-void andy::widgets::text::render(void* target)
+void andy::widgets::text::render(andy::drawing::basic_renderer& renderer)
 {
-    widget::render(target);
+    widget::render(renderer);
 
     if(content.size()) {
-        //renderer.draw_text(content, { x, y }, text_style.font_size, style.color);
+        renderer.draw_text(content, { x, y }, text_style.font, text_style.font_size, false, false);
     }
 }
 
-void andy::widgets::text::parse(void* target, andy::xml::schema& schema, andy::xml& xml)
+void andy::widgets::text::parse(andy::xml::schema& schema, andy::xml& xml)
 {
-    widget::parse(target, schema, xml);
+    widget::parse(schema, xml);
     
     style.color = schema.color_attribute(xml, "color");
     style.cursor = (andy::widgets::widget_cursor)schema.integer_attribute(xml, "cursor");
 
     text_style.vertical_alignment   = (andy::widgets::text_vertical_alignment)schema.integer_attribute(xml, "vertical-align");
     text_style.horizontal_alignment = (andy::widgets::text_horizontal_alignment)schema.integer_attribute(xml, "horizontal-align");
+    text_style.font = schema.string_attribute(xml, "font-family");
 
     std::string_view font_size = schema.string_attribute(xml, "font-size");
 
@@ -47,9 +42,9 @@ void andy::widgets::text::parse(void* target, andy::xml::schema& schema, andy::x
     }
 
     text_style.font_size = atoi(font_size.data());
+}
 
-    //andy::size size = renderer.text_extent(content, text_style.font_size);
-
-    //w = size.w;
-    //h = size.h;
+andy::size andy::widgets::text::calculate_min_size(andy::drawing::basic_renderer& renderer)
+{
+    return renderer.text_extent(content, text_style.font, text_style.font_size);
 }

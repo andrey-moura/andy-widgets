@@ -10,10 +10,10 @@ namespace andy
         protected:
             std::string content;
         public:
-            void render(void* target) override;
-            void parse(void* target, andy::xml::schema& schema, andy::xml& xml) override;
-            andy::size calculate_min_size() override;
-            bool on_char(std::string c) override;
+            void render(andy::drawing::basic_renderer& renderer) override;
+            void parse(andy::xml::schema& schema, andy::xml& xml) override;
+            andy::size calculate_min_size(andy::drawing::basic_renderer& renderer) override;
+            bool on_char(char c) override;
         };
     };
 };
